@@ -2,89 +2,89 @@ const products = {
     strains: [
         {
             id: 1,
-            name: "Jungle Diamond",
-            price: 120,
+            name: "White Rhino  (greenhouse)",
+            price: 45,
             type: "Indica",
             image: "images/strains/download.jpg",
             desc: ["Relaxing body high", "Earthy aroma", "Evening use"]
         },
         {
             id: 2,
-            name: "Blue Dream",
-            price: 110,
+            name: "Blue Dream (greenhouse)",
+            price: 45,
             type: "Hybrid",
-            image: "images/strains/og-kush.png",
+            image: "images/strains/paexpress.png",
             desc: ["Creative boost", "Sweet berry notes", "Daytime friendly"]
         },
         {
             id: 3,
-            name: "Gelato",
-            price: 130,
+            name: "Gelato (greenhouse)",
+            price: 60,
             type: "Hybrid",
-            image: "images/strains/og-kush.png",
+            image: "images/strains/platinum og.webp",
             desc: ["Balanced effects", "Dessert flavor", "Smooth smoke"]
         },
         {
             id: 4,
-            name: "Sour Diesel",
-            price: 125,
+            name: "Sour Diesel (indoor) ",
+            price: 80,
             type: "Sativa",
-            image: "images/strains/og-kush.png",
+            image: "images/strains/slury cake.avif",
             desc: ["Energetic buzz", "Diesel aroma", "Creative focus"]
         }
     ],
     prerolls: [
         {
             id: 5,
-            name: "Pre-Roll Pack",
-            price: 80,
+            name: "Small Pre-Roll",
+            price: 30,
             type: "Premium",
-            image: "https://via.placeholder.com/400x300?text=Pre-Rolls",
-            desc: ["3 premium joints", "Ready to smoke", "Convenient"]
+            image: "images/strains/small joint.jpg",
+            desc: ["1 small greenhouse joints", "Ready to smoke", "Convenient"]
         },
         {
             id: 6,
-            name: "Infused Pre-Roll",
-            price: 95,
+            name: "Large Pre-Roll",
+            price: 50,
             type: "Strong",
-            image: "https://via.placeholder.com/400x300?text=Infused+Pre-Roll",
-            desc: ["Extra potency", "Kief coated", "Smooth burn"]
+            image: "images/strains/big joint.avif",
+            desc: ["1 large greenhouse joints", "Ready to smoke", "Convenient"]
         }
     ],
     accessories: [
         {
             id: 7,
-            name: "Glass Pipe",
-            price: 45,
+            name: "Dab Pen ",
+            price: 600,
             type: "Accessory",
-            image: "https://via.placeholder.com/400x300?text=Glass+Pipe",
-            desc: ["Durable glass", "Easy to clean", "Portable"]
+            image: "images/accessorie/product2.webp",
+            desc: ["Durable Build", "One time use", "Discreet"]
         },
         {
             id: 8,
             name: "Grinder",
-            price: 35,
+            price: 150,
             type: "Accessory",
-            image: "https://via.placeholder.com/400x300?text=Grinder",
+            image: "images/accessorie/product1.jpg",
             desc: ["4-piece design", "Sharp teeth", "Magnetic lid"]
         }
     ],
     bundles: [
         {
-            id: 9,
-            name: "Starter Bundle",
-            price: 200,
-            type: "Value Pack",
-            image: "https://via.placeholder.com/400x300?text=Starter+Bundle",
-            desc: ["2 strains + pipe", "Perfect for beginners", "Save 20%"]
+            id: 5,
+            name: "Pre-Roll Pack (0.8g x 4)",
+            price: 100,
+            type: "Premium",
+            image: "images/strains/small joint.jpg",
+            desc: ["4 small greenhouse joints", "Ready to smoke", "Convenient"]
         },
         {
-            id: 10,
-            name: "Premium Bundle",
-            price: 350,
-            type: "Deluxe Pack",
-            image: "https://via.placeholder.com/400x300?text=Premium+Bundle",
-            desc: ["4 strains + accessories", "Rolling papers included", "Save 30%"]
+            id: 5,
+            name: "Pre-Roll Pack (1.2g x 4)",
+            price: 150,
+            type: "Premium",
+            image: "images/strains/big joint.avif",
+            desc: ["4 large greenhouse joints", "Ready to smoke", "Convenient"]
         }
     ]
 };
@@ -120,12 +120,14 @@ function addToCart(product) {
     if (existing) {
         existing.qty++;
     } else {
-        cart.push({ 
-            id: product.id, 
-            name: product.name, 
-            price: product.price, 
-            qty: 1 
-        });
+  cart.push({ 
+    id: product.id, 
+    name: product.name, 
+    price: product.price, 
+    image: product.image,
+    qty: 1 
+});
+
     }
     
     saveCart(cart);

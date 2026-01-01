@@ -277,6 +277,7 @@ body {
 
         .modal-content img {
             width: 100%;
+            max-height: 300px;
             border-radius: 12px;
             margin-bottom: 12px;
         }
@@ -403,4 +404,63 @@ body {
     .product-grid {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+/* ADD TO CART TOAST */
+.add-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #00cc66;
+    color: #000;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s ease;
+    z-index: 9999;
+}
+
+.add-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* CART BOUNCE */
+.cart-icon.bump {
+    animation: cartBump 0.4s ease;
+}
+
+@keyframes cartBump {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* CART COUNT PULSE */
+#cartCount.pulse {
+    animation: pulse 0.4s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* FLYING IMAGE */
+.fly-img {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    z-index: 9999;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
