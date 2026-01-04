@@ -40,14 +40,15 @@
         .store {
             padding: 16px;
             max-width: 900px;
+               padding-bottom: 180px; /* height of checkout box */
             margin: auto;
         }
 
         /* CART ITEM */
         .cart-item {
             display: grid;
-            grid-template-columns: 90px 1fr 36px;
-            gap: 14px;
+            grid-template-columns: 60px 1fr 36px;
+            gap: 100px;
             align-items: center;
             background: #111;
             padding: 14px;
@@ -56,8 +57,8 @@
         }
 
         .cart-item img {
-            width: 90px;
-            height: 90px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border-radius: 10px;
             image-rendering: auto;
@@ -99,8 +100,129 @@
         }
 
         .remove-btn {
+            position: absolute;
+            margin-left: 270px;
+            margin-top: 10px;
             background: none;
             border: none;
+            color: #ff4d4d;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* CHECKOUT BOX */
+.checkout-box {
+    position: fixed;
+    bottom: 12px;        /* space from bottom */
+    left: 50%;           /* center horizontally */
+    transform: translateX(-50%);
+    width: calc(100% - 34px); /* padding on left & right */
+    max-width: 900px;
+    background: #151515;
+    border: 1px solid #333;
+    padding: 16px;
+    z-index: 1000;
+    border-radius: 14px;
+}
+
+
+        .checkout-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .checkout-row.total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00cc66;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: #00cc66;
+            border: none;
+            border-radius: 14px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.02);
+        }
+
+
+
+
+        /* MOBILE */
+        @media (max-width: 480px) {
+        .cart-item {
+            display: grid;
+            position: relative;
+            grid-template-columns: 80px 1fr 36px;
+            gap: 90px;
+            align-items: center;
+            background: #111;
+            padding: 14px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .cart-item img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            image-rendering: auto;
+            display: block;
+        }
+
+        .cart-details h3 {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .cart-details p {
+            font-size: 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .qty-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: none;
+            background: #00cc66;
+            color: #000;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .qty-controls span {
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            position: fixed;
+            border: none;
+            margin-left: 210px;
+            margin-top: 13px;
             color: #ff4d4d;
             font-size: 20px;
             cursor: pointer;
@@ -145,49 +267,136 @@
             transform: scale(1.02);
         }
 
-        /* MOBILE */
-        @media (max-width: 480px) {
-            .cart-item {
-                grid-template-columns: 72px 1fr;
-                align-items: start;
-            }
 
-            .cart-item img {
-                width: 72px;
-                height: 72px;
-            }
-
-            .remove-btn {
-                justify-self: end;
-            }
-
-            .cart-details h3 {
-                font-size: 14px;
-            }
-
-            .cart-details p {
-                font-size: 13px;
-            }
-
-            .qty-controls button {
-                width: 28px;
-                height: 28px;
-                font-size: 16px;
-            }
-
-            .checkout-row {
-                font-size: 14px;
-            }
-
-            .checkout-row.total {
-                font-size: 16px;
-            }
-
-            .checkout-btn {
-                padding: 12px;
-                font-size: 14px;
-            }
+        
+      @media (max-width: 438px) {
+        .remove-btn {
+            position: fixed;
+            border: none;
+            margin-left: 180px;
+            margin-top: 13px;
+            color: #ff0000;
+            font-size: 20px;
+            cursor: pointer;
         }
+            }
+
+         @media (max-width: 410px) {
+        .remove-btn {
+            position: fixed;
+            border: none;
+            margin-left: 160px;
+            margin-top: 13px;
+            color: #ff0000;
+            font-size: 20px;
+            cursor: pointer;
+        }
+            }
+
+
+         @media (max-width: 380px) {
+        .cart-item {
+            display: grid;
+            position: relative;
+            grid-template-columns: 80px 1fr 36px;
+            gap: 30px;
+            align-items: center;
+            background: #111;
+            padding: 14px;
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            image-rendering: auto;
+            display: block;
+        }
+
+        .cart-details h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .cart-details p {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .qty-controls button {
+            width: 42px;
+            height: 22px;
+            border-radius: 8px;
+            border: none;
+            background: #00cc66;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .qty-controls span {
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            position: fixed;
+            border: none;
+            margin-left: 180px;
+            margin-top: 10px;
+            color: #ff4d4d;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* CHECKOUT BOX */
+        .checkout-box {
+            margin-top: 22px;
+            padding: 18px;
+            background: #151515;
+            border-radius: 14px;
+            border: 1px solid #333;
+        }
+
+        .checkout-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .checkout-row.total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00cc66;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: #00cc66;
+            border: none;
+            border-radius: 14px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+    }
+    }
     </style>
 </head>
 
@@ -253,11 +462,11 @@ function renderCart() {
             <img src="${item.image}" alt="">
             <div class="cart-details">
                 <h3>${item.name}</h3>
-                <p>R ${item.price.toFixed(2)} each</p>
+                <p>R ${item.price.toFixed(2)} each</p><button class="remove-btn" onclick="removeItem(${index})">✕</button>
                 <div class="qty-controls">
                     <button onclick="changeQty(${index}, -1)">−</button>
                     <span>${item.qty}</span>
-                    <button onclick="changeQty(${index}, 1)">+</button><br><button class="remove-btn" onclick="removeItem(${index})">✕</button>
+                    <button onclick="changeQty(${index}, 1)">+</button>
                 </div>
                 
             </div>
