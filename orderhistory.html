@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order History</title>
+<style>
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Header */
+h1 {
+    color: #00cc66;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Order cards */
+.order {
+    background: #121212;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.order:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 204, 102, 0.4);
+}
+
+/* Order header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-header h3 {
+    color: #00cc66;
+    font-size: 1.2rem;
+}
+
+/* Badge */
+.badge {
+    background: #00cc66;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Order details */
+.order-details {
+    margin-top: 10px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+.order-details p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+.order-details p strong {
+    color: #fff;
+}
+
+/* Items list */
+.items {
+    margin-top: 8px;
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.items li {
+    margin: 4px 0;
+}
+
+/* Back button */
+button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 28px;
+    background: #00cc66;
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: #00e680;
+    transform: scale(1.05);
+}
+
+/* Empty orders */
+#orderHistoryContainer p {
+    text-align: center;
+    font-size: 1rem;
+    color: #888;
+    margin-top: 50px;
+}
+</style>
+</head>
+<body>
+
+<h1>Your Order History</h1>
+<div id="orderHistoryContainer"></div>
+<button onclick="window.location.href='index.html'">Back to Store</button>
+
+<script>
+// Get orders from localStorage
+const orderHistory = JSON.parse(localStorage.getItem("orderHistory")) || [];
+const container = document.getElementById("orderHistoryContainer");
+
+// Display orders
+if(orderHistory.length === 0) {
+    container.innerHTML = "<p>No orders yet.</p>";
+} else {
+    orderHistory.slice().reverse().forEach((order, index) => {
+        const div = document.createElement("div");
+        div.className = "order";
+
+        // Items list
+        let itemsList = "<ul class='items'>";
+        order.items.forEach(i => {
+            itemsList += `<li>${i.name} x${i.qty}</li>`;
+        });
+        itemsList += "</ul>";
+
+        // Optional note badge
+        const noteBadge = order.note ? `<span class="badge">Note</span>` : "";
+        const paymentBadge = `<span class="badge">${order.payment}</span>`;
+
+        div.innerHTML = `
+            <div class="order-header">
+                <h3>Order on ${order.date}</h3>
+                <div>${paymentBadge} ${noteBadge}</div>
+            </div>
+            <div class="order-details">
+                <p><strong>Total:</strong> R ${order.total.toFixed(2)}</p>
+                <p><strong>Address:</strong> ${order.address}</p>
+                ${order.note ? `<p><strong>Note:</strong> ${order.note}</p>` : ""}
+                <p><strong>Items:</strong></p>
+                ${itemsList}
+            </div>
+        `;
+
+        // Toggle details on click
+        div.querySelector(".order-header").addEventListener("click", () => {
+            const details = div.querySelector(".order-details");
+            if(details.style.maxHeight){
+                details.style.maxHeight = null;
+            } else {
+                details.style.maxHeight = details.scrollHeight + "px";
+            }
+        });
+
+        container.appendChild(div);
+    });
+}
+</script>
+
+</body>
+</html>
