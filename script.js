@@ -71,7 +71,7 @@ const products = {
     ],
     bundles: [
         {
-            id: 5,
+            id: 9,
             name: "Pre-Roll Pack (0.8g x 4)",
             price: 100,
             type: "Premium",
@@ -79,7 +79,7 @@ const products = {
             desc: ["4 small greenhouse joints", "Ready to smoke", "Convenient"]
         },
         {
-            id: 5,
+            id: 10,
             name: "Pre-Roll Pack (1.2g x 4)",
             price: 150,
             type: "Premium",

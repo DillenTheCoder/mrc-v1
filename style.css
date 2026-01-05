@@ -316,12 +316,17 @@ body {
     font-weight: bold;
 }
 
+.nav-logo {
+    border-radius: 20px 20px 20px 20px; 
+}
+
 
 /* Add to existing style.css */
 
 /* Cart icon animation */
 .cart-icon {
-    position: fixed;
+    position: absolute;
+    margin-top: 28px;
     margin-left: 300px;
     color: #00cc66;
     font-size: 22px;

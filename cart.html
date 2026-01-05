@@ -656,6 +656,41 @@ button:active {
 </div>
 
 
+<div id="emptyCart" style="display:none; text-align:center; margin-top:60px;">
+    <h2 style="color:#fff; margin-bottom:12px;">Oopsie 😅</h2>
+    <p style="color:#aaa; margin-bottom:24px;">
+        Your cart is empty. Let’s fix that.
+    </p>
+    <button
+        onclick="window.location.href='index.html'"
+        style="
+            padding:14px 26px;
+            background:#00cc66;
+            border:none;
+            border-radius:14px;
+            font-weight:bold;
+            font-size:16px;
+            cursor:pointer;
+        ">
+        Go Shopping
+    </button>
+        <button
+        onclick="window.location.href='orderhistory.html'"
+        style="
+            padding:14px 26px;
+            background:#00cc66;
+            border:none;
+            border-radius:14px;
+            font-weight:bold;
+            font-size:16px;
+            cursor:pointer;
+        ">
+        Past Orders
+    </button>
+</div>
+
+
+
 
 <script>
 /* =========================
@@ -664,6 +699,8 @@ button:active {
 const WHATSAPP_NUMBER = "27846384919"; // CHANGE IF NEEDED
 const DELIVERY_FEE = 50;
 const FREE_DELIVERY_OVER = 500;
+const emptyCartEl = document.getElementById("emptyCart");
+
 
 /* =========================
    CART STORAGE
@@ -697,6 +734,21 @@ function renderCart() {
     const cart = getCart();
     cartItemsEl.innerHTML = "";
 
+    // EMPTY CART STATE
+    if (cart.length === 0) {
+        emptyCartEl.style.display = "block";
+        document.querySelector(".checkout-box").style.display = "none";
+
+        subtotalEl.textContent = "R 0.00";
+        deliveryEl.textContent = "R 0.00";
+        totalEl.textContent = "R 0.00";
+        return;
+    }
+
+    // CART HAS ITEMS
+    emptyCartEl.style.display = "none";
+    document.querySelector(".checkout-box").style.display = "block";
+
     let subtotal = 0;
 
     cart.forEach((item, index) => {
@@ -720,7 +772,6 @@ function renderCart() {
                 </div>
             </div>
         `;
-
         cartItemsEl.appendChild(div);
     });
 
@@ -731,6 +782,7 @@ function renderCart() {
     deliveryEl.textContent = delivery === 0 ? "FREE" : "R " + delivery.toFixed(2);
     totalEl.textContent = "R " + total.toFixed(2);
 }
+
 
 /* =========================
    CART ACTIONS
@@ -865,14 +917,14 @@ function sendOrder() {
         message += `• ${item.name} x${item.qty}\n`;
     });
 
-    message += `\n* Delivery Address:*\n${address}\n`;
-    message += `\n* Payment Method:* ${payment}\n`;
+    message += `\n *Delivery Address:*\n${address}\n`;
+    message += `\n *Payment Method:* ${payment}\n`;
 
     if (note) {
-        message += `* Note:* ${note}\n`;
+        message += `*Note:* ${note}\n`;
     }
 
-    message += `\n* Order Time:* ${new Date().toLocaleString()}`;
+    message += `\n *Order Time:* ${new Date().toLocaleString()}`;
 
     const whatsappURL =
         `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
