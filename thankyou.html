@@ -2,642 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Order Confirmed! | Quick Delivery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Order Received | Thank You</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        :root {
-            --primary: #00cc66;
-            --primary-dark: #00aa55;
-            --secondary: #6c63ff;
-            --dark: #0a0a0a;
-            --light: #f8f9fa;
-            --gray: #2d2d2d;
-            --card-bg: #1a1a1a;
-            --safe-area-inset-bottom: env(safe-area-inset-bottom, 20px);
-        }
-
-        html {
-            font-size: 16px;
-            -webkit-text-size-adjust: 100%;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: var(--light);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
             min-height: 100vh;
-            min-height: -webkit-fill-available;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            padding-bottom: calc(16px + var(--safe-area-inset-bottom));
-            overflow-x: hidden;
-            touch-action: manipulation;
         }
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 10px 40px rgba(0, 204, 102, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            margin: auto;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .confirmation-icon {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-            animation: bounce 2s infinite;
+        /* NAVBAR */
+        .navbar {
             display: flex;
             justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #111, #1a1a1a);
+            padding: 16px;
+            border-bottom: 2px solid #00cc66;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .logo-text {
+            color: #00cc66;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* CONTENT */
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #111, #1d1d1d);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            animation: fadeUp 0.6s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .check {
+            font-size: 64px;
+            margin-bottom: 16px;
         }
 
         h1 {
-            color: var(--light);
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            text-align: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.3;
-            font-weight: 700;
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: #00ff88;
         }
 
-        .subtitle {
-            font-size: 1rem;
+        p {
+            font-size: 15px;
             color: #aaa;
-            margin-bottom: 32px;
-            text-align: center;
-            line-height: 1.5;
-            max-width: 100%;
+            line-height: 1.6;
+            margin-bottom: 24px;
         }
 
-        .delivery-animation-container {
-            width: 100%;
-            height: 140px;
-            background: rgba(0, 0, 0, 0.3);
+        .status {
+            background: #0f2a1f;
+            border: 1px solid #00cc66;
+            color: #00ff88;
+            padding: 12px;
             border-radius: 12px;
-            margin: 32px 0;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .road {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            background: #333;
-        }
-
-        .road-line {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: repeating-linear-gradient(
-                90deg,
-                #ffcc00 0,
-                #ffcc00 15px,
-                transparent 15px,
-                transparent 30px
-            );
-            animation: roadMove 2s linear infinite;
-        }
-
-        @keyframes roadMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-30px); }
-        }
-
-        .delivery-car {
-            position: absolute;
-            bottom: 25px;
-            left: -80px;
-            width: 90px;
-            height: 45px;
-            animation: driveIn 1.5s ease-out forwards 0.5s, driveLoop 4s linear infinite 2s;
-        }
-
-        @keyframes driveIn {
-            0% { left: -80px; }
-            100% { left: 30px; }
-        }
-
-        @keyframes driveLoop {
-            0%, 100% { left: 30px; transform: translateY(0); }
-            25% { transform: translateY(-4px); }
-            50% { left: calc(100% - 120px); transform: translateY(0); }
-            75% { transform: translateY(-4px); }
-        }
-
-        .car-body {
-            position: absolute;
-            width: 100%;
-            height: 30px;
-            background: #4a9eff;
-            border-radius: 8px 8px 0 0;
-            bottom: 0;
-        }
-
-        .car-top {
-            position: absolute;
-            width: 70%;
-            height: 20px;
-            background: #3578d4;
-            border-radius: 6px 6px 0 0;
-            top: -20px;
-            left: 15%;
-        }
-
-        .car-wheel {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: #222;
-            border-radius: 50%;
-            bottom: -9px;
-            border: 2px solid #555;
-        }
-
-        .car-wheel.front { left: 12px; }
-        .car-wheel.back { right: 12px; }
-
-        .driver {
-            position: absolute;
-            width: 15px;
-            height: 18px;
-            background: #ff9966;
-            border-radius: 50% 50% 0 0;
-            top: -28px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .message-bubble {
-            position: absolute;
-            top: 20px;
-            left: 100px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 12px 16px;
-            border-radius: 12px;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            animation: fadeIn 0.5s forwards 2s;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .message-bubble::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 20px;
-            width: 14px;
-            height: 14px;
-            background: inherit;
-            transform: rotate(45deg);
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .message-bubble i {
-            color: var(--primary);
-            margin-right: 6px;
-            font-size: 0.9rem;
-        }
-
-        .order-details {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 24px 0;
-            border-left: 4px solid var(--primary);
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.95rem;
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-row span {
-            color: #ccc;
-        }
-
-        .detail-row strong {
             font-weight: 600;
-            text-align: right;
-            max-width: 60%;
-            word-break: break-word;
-        }
-
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 24px;
-            width: 100%;
+            margin-bottom: 24px;
         }
 
         .btn {
-            padding: 18px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
             border: none;
-            width: 100%;
-            min-height: 56px;
-            touch-action: manipulation;
-            user-select: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #00cc66;
+            color: #000;
+            margin-bottom: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            font-weight: 700;
+        .btn.secondary {
+            background: #222;
+            color: #fff;
+            border: 1px solid #333;
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
-        .btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
-        }
-
-        .btn-primary:active {
-            box-shadow: 0 5px 15px rgba(0, 204, 102, 0.3);
-        }
-
-        .btn-secondary:active {
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 32px 0 24px;
-            position: relative;
-            padding: 0 8px;
-        }
-
-        .status-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            z-index: 2;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .status-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .status-step.active .status-icon {
-            background: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 204, 102, 0.5);
-        }
-
-        .status-step span {
-            font-size: 0.75rem;
-            color: #aaa;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
-        }
-
-        .status-step.active span {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .status-line {
-            position: absolute;
-            top: 20px;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: var(--gray);
-            z-index: 1;
-        }
-
-        .status-line-progress {
-            position: absolute;
-            top: 20px;
-            left: 20%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            z-index: 1;
-            animation: progressFill 2s forwards 1s;
-        }
-
-        @keyframes progressFill {
-            0% { width: 0; }
-            100% { width: 60%; }
-        }
-
-        .footer-note {
-            margin-top: 24px;
-            font-size: 0.85rem;
-            color: #888;
-            text-align: center;
-            line-height: 1.5;
-            padding: 0 8px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 380px) {
-            .container {
-                padding: 20px 16px;
-                border-radius: 16px;
-            }
-            
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .confirmation-icon {
-                font-size: 3.5rem;
-            }
-            
-            .delivery-animation-container {
-                height: 120px;
-                margin: 24px 0;
-            }
-            
-            .message-bubble {
-                left: 80px;
-                right: 8px;
-                font-size: 0.85rem;
-                padding: 10px 14px;
-            }
-            
-            .status-step span {
-                font-size: 0.7rem;
-            }
-            
-            .status-icon {
-                width: 36px;
-                height: 36px;
-            }
-            
-            .btn {
-                padding: 16px 20px;
-                min-height: 52px;
-                font-size: 0.95rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                max-width: 500px;
-                padding: 32px;
-            }
-            
-            .button-group {
-                flex-direction: row;
-            }
-            
-            .btn {
-                min-width: auto;
-            }
-        }
-
-        /* Prevent zoom on iOS input focus */
-        @media (max-width: 768px) {
-            input, select, textarea {
-                font-size: 16px !important;
-            }
-        }
-
-        /* Improved scrolling for mobile */
-        .container {
-            -webkit-overflow-scrolling: touch;
+        .small {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="confirmation-icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        
-        <h1>Order Confirmed!</h1>
-        <p class="subtitle">Your order has been received and is being prepared. We'll notify you at every step.</p>
-        
-        <div class="status-indicator">
-            <div class="status-line"></div>
-            <div class="status-line-progress"></div>
-            <div class="status-step active">
-                <div class="status-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <span>Ordered</span>
-            </div>
-            <div class="status-step">
-                <div class="status-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <span>Preparing</span>
-            </div>
-            <div class="status-step">
-                <div class="status-icon">
-                    <i class="fas fa-shipping-fast"></i>
-                </div>
-                <span>On the Way</span>
-            </div>
-            <div class="status-step">
-                <div class="status-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <span>Delivered</span>
-            </div>
-        </div>
-        
-        
-        <div class="delivery-animation-container">
-            <div class="road">
-                <div class="road-line"></div>
-            </div>
-            
-            <div class="delivery-car">
-                <div class="car-body"></div>
-                <div class="car-top"></div>
-                <div class="driver"></div>
-                <div class="car-wheel front"></div>
-                <div class="car-wheel back"></div>
-            </div>
-            
-            <div class="message-bubble">
-                <i class="fas fa-bullhorn"></i>
-                "We're coming for you! ETA 50-60 min"
-            </div>
-        </div>
-        
-        <div class="order-details">
-            <div class="detail-row">
-                <span>Order Number:</span>
-                <strong>#ORD-789456</strong>
-            </div>
-            <div class="detail-row">
-                <span>Estimated Delivery:</span>
-                <strong>50-60 minutes</strong>
-            </div>
-            <div class="detail-row">
-                <span>Payment Status:</span>
-                <strong style="color: var(--primary)">Confirmed</strong>
-            </div>
-        </div>
-        
-        <div class="button-group">
-            <button class="btn btn-primary" onclick="window.location.href='index.html'">
-                <i class="fas fa-store"></i>
-                Back to Store
-            </button>
-            <button class="btn btn-secondary" onclick="window.location.href='orderhistory.html'">
-                <i class="fas fa-history"></i>
-                View Orders
-            </button>
-        </div>
-        
-        <p class="footer-note">
-            Need help? Contact us at support@quickdelivery.com
+
+<header class="navbar">
+    <span class="logo-text">Order Complete</span>
+</header>
+
+<main class="container">
+    <div class="card">
+        <div class="check">✅</div>
+
+        <h1>Thank You!</h1>
+
+        <p>
+            Your order has been sent successfully.<br>
+            We’ll confirm availability and update you shortly on WhatsApp.
         </p>
+
+        <div class="status">
+            Status: Order Received
+        </div>
+
+        <button class="btn" onclick="window.location.href='index.html'">
+            Continue Shopping
+        </button>
+
+        <button class="btn secondary" onclick="window.location.href='orderhistory.html'">
+            View Order History
+        </button>
+
+        <div class="small"><br>
+           <strong> If you don’t hear from us soon, please make sure that you send your Whatsapp Message</strong>
+        </div>
     </div>
-    
-    <script>
-        // Mobile-optimized JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            // Use passive event listeners for better scroll performance
-            document.querySelectorAll('.btn').forEach(button => {
-                button.addEventListener('touchstart', function(e) {
-                    this.classList.add('active');
-                }, { passive: true });
-                
-                button.addEventListener('touchend', function() {
-                    this.classList.remove('active');
-                }, { passive: true });
-                
-                button.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#') {
-                        e.preventDefault();
-                    }
-                });
-            });
-            
-            // Animate status steps on mobile
-            let animationDelay = 0;
-            document.querySelectorAll('.status-step').forEach((step, index) => {
-                if (index > 0) {
-                    animationDelay += 2000;
-                    setTimeout(() => {
-                        step.classList.add('active');
-                    }, animationDelay);
-                }
-            });
-            
-            // Handle viewport height on mobile
-            function setViewportHeight() {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
-            
-            setViewportHeight();
-            window.addEventListener('resize', setViewportHeight);
-            window.addEventListener('orientationchange', setViewportHeight);
-            
-            // Prevent accidental zoom on double-tap
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function(event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, { passive: true });
-            
-            // Add haptic feedback for supported devices
-            if ('vibrate' in navigator) {
-                document.querySelectorAll('.btn').forEach(button => {
-                    button.addEventListener('touchstart', function() {
-                        navigator.vibrate(10);
-                    }, { passive: true });
-                });
-            }
-        });
-    </script>
+</main>
+
 </body>
 </html>

@@ -911,24 +911,44 @@ function sendOrder() {
     const payment = document.querySelector('input[name="payment"]:checked').value;
     const note = document.getElementById("note").value.trim();
 
+    const orderId = "ORD-" + Date.now().toString().slice(-6);
+
+    const order = {
+        id: orderId,
+        items: cart,
+        address,
+        payment,
+        note,
+        status: "PENDING",
+        createdAt: new Date().toISOString()
+    };
+
+    // SAVE ORDER HISTORY
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(order);
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    // BUILD WHATSAPP MESSAGE
     let message = "Hello, Please Confirm Availability\n\n*Order Items:*\n";
 
     cart.forEach(item => {
         message += `• ${item.name} x${item.qty}\n`;
     });
 
-    message += `\n *Delivery Address:*\n${address}\n`;
-    message += `\n *Payment Method:* ${payment}\n`;
+    message += `\n*Order ID:* ${orderId}\n`;
+    message += `\n*Delivery Address:*\n${address}\n`;
+    message += `\n*Payment Method:* ${payment}\n`;
 
     if (note) {
         message += `*Note:* ${note}\n`;
     }
 
-    message += `\n *Order Time:* ${new Date().toLocaleString()}`;
+    message += `\n*Order Time:* ${new Date().toLocaleString()}`;
 
     const whatsappURL =
         `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+    // CLEAR CART AFTER SAVING ORDER
     localStorage.removeItem("cart");
 
     const btn = document.getElementById("sendOrderBtn");
@@ -940,6 +960,7 @@ function sendOrder() {
         window.location.href = "thankyou.html";
     }, 700);
 }
+
 
 /* =========================
    EVENTS
